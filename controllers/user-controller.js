@@ -8,7 +8,7 @@ class UserController {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return next(
-          ApiError.BadRequest("Ошибка при валидации", errors.array())
+          ApiError.BadRequest("Ошибка при валидации", [{...errors}])
         );
       }
       const { email, nickname, password } = req.body;
@@ -21,7 +21,7 @@ class UserController {
       });
       return res.json(userData);
     } catch (e) {
-      next(e);
+      next(e)
     }
   }
 
@@ -96,26 +96,6 @@ class UserController {
       next(e);
     }
   }
-
-  // async like(req, res, next) {
-  //   try {
-  //     const { id, filmId } = req.body;
-  //     const user = await userService.like(id, filmId);
-  //     return res.json(user);
-  //   } catch (e) {
-  //     next(e);
-  //   }
-  // }
-
-  // async unLike(req, res, next) {
-  //   try {
-  //     const { id, filmId } = req.body;
-  //     let user = await userService.unLike(id, filmId);
-  //     return res.json(user);
-  //   } catch (e) {
-  //     next(e);
-  //   }
-  // }
 
 }
 

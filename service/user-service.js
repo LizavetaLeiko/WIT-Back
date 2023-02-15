@@ -5,6 +5,7 @@ const mailService = require("./mail-service");
 const tokenService = require("./token-service");
 const UserDto = require("../dtos/user-dto");
 const ApiError = require("../exceptions/api-error");
+const userDataModel = require("../models/userData-model");
 
 class UserService {
   async registration(email, nickname, password) {
@@ -23,9 +24,10 @@ class UserService {
       nickname,
       activationLink,
     });
+    await userDataModel.create({userId: user.id});
     await mailService.sendActivationMail(
       email,
-      `${process.env.API_URL}/api/activate/${activationLink}`
+      `${process.env.API_URL}/api/accountinfo/${activationLink}`
     );
 
     const userDto = new UserDto(user); 
@@ -91,27 +93,6 @@ class UserService {
     const user = await UserModel.findOne({ _id: userId });
     return user;
   }
-
-  // async like(userId, filmId) {
-  //   const user = await UserModel.findOne({ _id: userId });
-  //   if (user && !user.likedFilms.includes(filmId)) {
-  //     user.likedFilms.push(filmId);
-  //     user.save();
-  //     return user;
-  //   }
-  //   return user;
-  // }
-  // async unLike(userId, filmId) {
-  //   const user = await UserModel.findOne({ _id: userId });
-  //   if (user && user.likedFilms.includes(filmId)) {
-  //     let index = user.likedFilms.indexOf(filmId);
-  //     user.likedFilms.splice(index, 1);
-  //     user.save();
-  //     return user;
-  //   }
-  //   return user;
-  // }
-
 }
 
 module.exports = new UserService();
