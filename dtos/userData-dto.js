@@ -5,6 +5,7 @@ module.exports = class UserDataDto {
   bDay;
   location;
   description;
+  photoLink;
 
   constructor(model) {
       this.name = model.name;
@@ -13,5 +14,6 @@ module.exports = class UserDataDto {
       this.bDay = model.bDay;
       this.location = model.location;
       this.description = model.description;
+      this.photoLink = model.photoLink;
   }
 }

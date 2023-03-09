@@ -7,6 +7,7 @@ const UserDataSchema = new Schema({
   bDay: { type: String, default: ''},
   location: { type: String, default: ''},
   description: { type: String, default: ''},
+  photoLink: { type: String, default: ''}
 });
 
 module.exports = model("UserData", UserDataSchema);

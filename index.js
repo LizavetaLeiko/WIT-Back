@@ -5,11 +5,14 @@ const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const router = require('./router/index');
 const errorMiddleware = require("./middlewares/error-middleware");
+const fileUpload = require("express-fileupload")
+
 
 const app = express();
 
 app.setMaxListeners(0)
 
+app.use(fileUpload({}))
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
@@ -17,7 +20,7 @@ app.use(cors({
   origin: [process.env.CLIENT_URL, 'http://localhost:3000']
 }));
 app.use('/api', router);
-app.use(errorMiddleware)
+app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 5000;
 const start = async () => {

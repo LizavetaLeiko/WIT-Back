@@ -4,8 +4,8 @@ class UserDataController {
 
   async setUserData(req, res, next) {
     try {
-      const { id, name, speciality, bDay, location, description} = req.body;
-      const userData = await userDataService.setUserData(id, name, speciality, bDay, location, description);
+      const { id, name, speciality, bDay, location, description, photoLink} = req.body;
+      const userData = await userDataService.setUserData(id, name, speciality, bDay, location, description, photoLink);
       return res.json(userData);
     } catch (e) {
       next(e);
@@ -14,8 +14,8 @@ class UserDataController {
 
   async getUserData(req, res, next) {
     try {
-      const { id } = req.params;
-      const user = await userDataService.getUserData(id);
+      const { userId } = req.params;
+      const user = await userDataService.getUserData(userId);
       return res.json(user);
     } catch (e) {
       next(e);
