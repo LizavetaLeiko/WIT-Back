@@ -42,6 +42,26 @@ class PostsController {
     }
   }
 
+  async likePost(req, res, next) {
+    const { id } = req.params;
+    try {
+      const post = await PostService.likePost(id);
+      return res.json(post);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async unLikePost(req, res, next) {
+    const { id } = req.params;
+    try {
+      const post = await PostService.unLikePost(id);
+      return res.json(post);
+    } catch (e) {
+      next(e);
+    }
+  }
+
 }
 
 module.exports = new PostsController();

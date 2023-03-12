@@ -20,7 +20,6 @@ class PostService {
   }
 
   async getPost(postId) {
-    console.log(postId)
     const post = await PostModel.findOne({ _id: postId });
     return post;
   }
@@ -35,6 +34,13 @@ class PostService {
     return posts;
   }
   
+  async likePost(postId){
+    const post = await PostModel.findOneAndUpdate({_id: postId }, { $set: {likes: likes++}});
+  }
+
+  async unLikePost(postId){
+    const post = await PostModel.findOneAndUpdate({_id: postId }, { $set: {likes: likes--}});
+  }
 }
 
 module.exports = new PostService();
