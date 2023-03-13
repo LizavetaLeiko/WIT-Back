@@ -24,8 +24,7 @@ router.post('/createpost', postsController.createPost);
 router.get('/post/:id', postsController.getPost);
 router.get('/usersposts/:id', postsController.getAllUsersPosts);
 router.get('/posts', postsController.getAllPosts);
-router.put('/likepost/:id', postsController.likePost);
-router.put('/unlikepost/:id', postsController.unLikePost);
+router.patch('/likepost', postsController.likePost);
 
 
 module.exports = router

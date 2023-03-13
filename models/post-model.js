@@ -6,7 +6,7 @@ const PostSchema = new Schema({
   header: { type: String, default: ''},
   content: { type: String, default: ''},
   file: { type: String, default: ''},
-  likes: { type: Number, default: 0},
+  likes: { type: [], default: []},
   isFixed: { type: Boolean, default: false}
 });
 

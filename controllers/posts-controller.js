@@ -43,19 +43,9 @@ class PostsController {
   }
 
   async likePost(req, res, next) {
-    const { id } = req.params;
+    const { userId, postId } = req.body;
     try {
-      const post = await PostService.likePost(id);
-      return res.json(post);
-    } catch (e) {
-      next(e);
-    }
-  }
-
-  async unLikePost(req, res, next) {
-    const { id } = req.params;
-    try {
-      const post = await PostService.unLikePost(id);
+      const post = await PostService.likePost(userId, postId);
       return res.json(post);
     } catch (e) {
       next(e);

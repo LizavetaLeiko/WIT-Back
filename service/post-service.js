@@ -34,13 +34,15 @@ class PostService {
     return posts;
   }
   
-  async likePost(postId){
-    const post = await PostModel.findOneAndUpdate({_id: postId }, { $set: {likes: likes++}});
+  async likePost(userId, postId){
+    const post = await PostModel.findOne({_id: postId });
+    if(post.likes.includes(userId)){
+      return await PostModel.findOneAndUpdate({_id: post.id }, { $set: {likes: post.likes.filter(item => item !== userId)}}, {new: true});
+    } else {
+      return await PostModel.findOneAndUpdate({_id: post.id }, { $set: {likes: [...post.likes, userId]}}, {new: true});
+    }
   }
 
-  async unLikePost(postId){
-    const post = await PostModel.findOneAndUpdate({_id: postId }, { $set: {likes: likes--}});
-  }
 }
 
 module.exports = new PostService();
