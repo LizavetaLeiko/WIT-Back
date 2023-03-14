@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 const UserDataSchema = new Schema({
-  userId: { type: String, required: true, ref: 'User'},
+  // userId: { type: String, required: true, ref: 'User'}, // УДАЛИТЬ НАХУЙ!!!!
   name: { type: String, default: ''},
   speciality: { type: String, default: ''},
   bDay: { type: String, default: ''},

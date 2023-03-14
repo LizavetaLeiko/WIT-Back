@@ -1,5 +1,4 @@
 module.exports = class UserDataDto {
-  userId;
   name;
   speciality;
   bDay;
@@ -9,7 +8,6 @@ module.exports = class UserDataDto {
 
   constructor(model) {
       this.name = model.name;
-      this.userId = model.userId;
       this.speciality = model.speciality;
       this.bDay = model.bDay;
       this.location = model.location;

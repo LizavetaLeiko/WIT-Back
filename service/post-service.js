@@ -13,24 +13,38 @@ class PostService {
       content,
       file,
       likes,
-      isFixed,
     }
     const post = await PostModel.create({...body});
     return post;
   }
 
   async getPost(postId) {
-    const post = await PostModel.findOne({ _id: postId });
+    const post = await PostModel.findOne({ _id: postId }).populate({
+      path: 'userId',
+      populate: {
+        path: 'userDataId'
+      }
+    });
     return post;
   }
   
   async getAllUsersPosts(userId) {
-    const posts = await PostModel.find({userId: userId});
+    const posts = await PostModel.find({userId: userId}).populate({
+      path: 'userId',
+      populate: {
+        path: 'userDataId'
+      }
+    });
     return posts;
   }
 
   async getAllPosts() {
-    const posts = await PostModel.find();
+    const posts = await PostModel.find().populate({
+      path: 'userId',
+      populate: {
+        path: 'userDataId'
+      }
+    });
     return posts;
   }
   

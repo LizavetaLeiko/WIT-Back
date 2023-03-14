@@ -18,13 +18,14 @@ class UserService {
     }
     const hashPassword = await bcrypt.hash(password, 3);
     const activationLink = uuid.v4();
+    const userData = await userDataModel.create({});
     const user = await UserModel.create({
       email,
       password: hashPassword,
       nickname,
       activationLink,
+      userDataId: userData._id,
     });
-    await userDataModel.create({userId: user.id});
     await mailService.sendActivationMail(
       email,
       `${process.env.API_URL}/api/accountinfo/${activationLink}`

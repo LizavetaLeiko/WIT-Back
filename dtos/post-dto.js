@@ -6,8 +6,6 @@ module.exports = class PostDto {
   content;
   file;
   likes;
-  isFixed;
-
 
   constructor(model) {
       this.userId = model.userId;
@@ -17,6 +15,5 @@ module.exports = class PostDto {
       this.content = model.content;
       this.file = model.file;
       this.likes = model.likes;
-      this.isFixed = model.isFixed;
   }
 }
