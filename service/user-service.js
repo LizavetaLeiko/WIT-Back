@@ -25,7 +25,7 @@ class UserService {
       nickname,
       activationLink,
       userDataId: userData._id,
-    });
+    }).populate('userDataId');
     await mailService.sendActivationMail(
       email,
       `${process.env.API_URL}/api/accountinfo/${activationLink}`
@@ -48,7 +48,7 @@ class UserService {
   }
 
   async login(email, password) {
-    const user = await UserModel.findOne({ email });
+    const user = await UserModel.findOne({ email }).populate('userDataId');
     if (!user) {
       throw ApiError.BadRequest("User with this email not found");
     }
@@ -77,7 +77,7 @@ class UserService {
     if (!userData || !tokenFromDb) {
       throw ApiError.UnauthorizedError();
     }
-    const user = await UserModel.findById(userData.id);
+    const user = await UserModel.findById(userData.id).populate('userDataId');
     const userDto = new UserDto(user);
     const tokens = tokenService.generateTokens({ ...userDto });
 
@@ -86,12 +86,12 @@ class UserService {
   }
 
   async getAllUsers() {
-    const users = await UserModel.find();
+    const users = await UserModel.find().populate('userDataId');
     return users;
   }
 
   async getUser(userId) {
-    const user = await UserModel.findOne({ _id: userId });
+    const user = await UserModel.findOne({ _id: userId }).populate('userDataId');
     return user;
   }
 }

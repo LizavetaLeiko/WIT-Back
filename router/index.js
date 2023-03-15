@@ -16,15 +16,15 @@ router.post('/login', userController.login);
 router.post('/logout', userController.logout);
 router.get('/activate/:link', userController.activate);
 router.get('/refresh', userController.refresh);
-router.get('/users', authMiddleware, userController.getUsers);
-router.get('/user/:id', authMiddleware, userController.getUser);
-router.put('/userdata', userDataController.setUserData);
+router.get('/users',  userController.getUsers);
+router.get('/user/:id', userController.getUser);
+router.put('/userdata',  userDataController.setUserData);
 router.get('/userdata/:id', userDataController.getUserData);
 router.post('/createpost', postsController.createPost);
-router.get('/post/:id', postsController.getPost);
-router.get('/usersposts/:id', postsController.getAllUsersPosts);
-router.get('/posts', postsController.getAllPosts);
-router.patch('/likepost', postsController.likePost);
+router.get('/post/:id', authMiddleware, postsController.getPost);
+router.get('/usersposts/:id', authMiddleware, postsController.getAllUsersPosts);
+router.get('/posts', authMiddleware, postsController.getAllPosts);
+router.patch('/likepost', authMiddleware, postsController.likePost);
 
 
 module.exports = router

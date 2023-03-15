@@ -14,8 +14,8 @@ class UserDataController {
 
   async getUserData(req, res, next) {
     try {
-      const { userId } = req.params;
-      const user = await userDataService.getUserData(userId);
+      const { id } = req.params;
+      const user = await userDataService.getUserData(id);
       return res.json(user);
     } catch (e) {
       next(e);
